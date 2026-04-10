@@ -483,8 +483,8 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   .legend-item { font-size: 0.7rem; gap: 5px; }
   .ldot { width: 8px; height: 8px; }
 
-  /* Watermark — move to left on mobile */
-  #mapWatermark { left: 8px; right: auto; bottom: 8px; }
+  /* Watermark — move to bottom on mobile */
+  #mapWatermark { top: auto; bottom: 8px; left: 8px; }
 
   /* Toast — full width */
   #toastContainer { bottom: 10px; right: 10px; left: 10px; }
@@ -513,7 +513,7 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 
 /* ── Map watermark ── */
 #mapWatermark {
-  position: absolute; bottom: 8px; right: 16px; z-index: 400;
+  position: absolute; top: 16px; left: 16px; z-index: 400;
   font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2px;
   color: rgba(255,255,255,0.75);
   pointer-events: none;
