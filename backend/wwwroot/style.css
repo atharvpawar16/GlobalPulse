@@ -69,6 +69,8 @@ body { display: flex; flex-direction: column; }
   font-size: 1.4rem; cursor: pointer; width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 8px;
+  position: relative;
+  z-index: 1001;
 }
 .topbar-logo {
   display: flex; align-items: center; gap: 7px;
@@ -418,16 +420,17 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 
 /* ── Sidebar overlay (mobile) ── */
 #sidebarOverlay {
-  display: none;
   position: fixed;
   top: 52px; left: 0; right: 0; bottom: 0;
   z-index: 299;
   background: rgba(0,0,0,0.5);
-  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.25s, visibility 0.25s;
 }
 #sidebarOverlay.visible { 
-  display: block; 
-  pointer-events: auto;
+  visibility: visible;
+  opacity: 1;
 }
 
 /* ── Mobile ── */
