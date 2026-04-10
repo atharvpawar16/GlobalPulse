@@ -420,11 +420,15 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 #sidebarOverlay {
   display: none;
   position: fixed;
-  left: 0; right: 0; bottom: 0;
+  top: 52px; left: 0; right: 0; bottom: 0;
   z-index: 299;
   background: rgba(0,0,0,0.5);
+  pointer-events: none;
 }
-#sidebarOverlay.visible { display: block; top: 52px; }
+#sidebarOverlay.visible { 
+  display: block; 
+  pointer-events: auto;
+}
 
 /* ── Mobile ── */
 @media (max-width: 700px) {
