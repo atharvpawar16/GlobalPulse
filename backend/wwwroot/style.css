@@ -419,11 +419,12 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 /* ── Sidebar overlay (mobile) ── */
 #sidebarOverlay {
   display: none;
-  position: fixed; inset: 0; z-index: 299;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 299;
   background: rgba(0,0,0,0.5);
-  top: 52px;
 }
-#sidebarOverlay.visible { display: block; }
+#sidebarOverlay.visible { display: block; top: 52px; }
 
 /* ── Mobile ── */
 @media (max-width: 700px) {
@@ -505,7 +506,7 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 
 /* ── Map watermark ── */
 #mapWatermark {
-  position: absolute; top: 56px; left: 16px; z-index: 400;
+  position: absolute; bottom: 8px; left: 16px; z-index: 400;
   font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2px;
   color: rgba(255,255,255,0.75);
   pointer-events: none;
