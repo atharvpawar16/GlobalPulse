@@ -157,4 +157,10 @@ See [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
 
 ## License
 
-[MIT](LICENSE) © 2026 [atharvpawar16](https://github.com/atharvpawar16)
+[MIT](LICENSE) © 2026 [Atharv Pawar](https://github.com/atharvpawar16)
+
+---
+
+<div align="center">
+  Built with ❤️ by <a href="https://github.com/atharvpawar16">Atharv Pawar</a>
+</div>
