@@ -1,0 +1,6 @@
+@GlobalPulse.Api_HostAddress = http://localhost:5164
+
+GET {{GlobalPulse.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

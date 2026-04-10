@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: globalpulse
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: globalpulse
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    environment:
+      ConnectionStrings__Postgres: "Host=db;Port=5432;Database=globalpulse;Username=globalpulse;Password=password"
+      Redis: "redis:6379"
+    ports:
+      - "5000:8080"
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  pgdata:
