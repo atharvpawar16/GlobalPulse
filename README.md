@@ -5,7 +5,14 @@
 [![CI](https://github.com/atharvpawar16/GlobalPulse/actions/workflows/ci.yml/badge.svg)](https://github.com/atharvpawar16/GlobalPulse/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://globalpulse-mdmw.onrender.com)
 [![Stars](https://img.shields.io/github/stars/atharvpawar16/GlobalPulse?style=social)](https://github.com/atharvpawar16/GlobalPulse/stargazers)
+
+## 🔴 Live Demo
+
+**[https://globalpulse-mdmw.onrender.com](https://globalpulse-mdmw.onrender.com)**
+
+> Free tier — may take ~50s to wake up on first visit.
 
 ---
 
@@ -17,26 +24,28 @@ No paywalls. No API keys required. Fully open source.
 
 ---
 
-## Screenshots
+## Features
 
-> *Satellite view with live event markers, dark mode*
-
-![GlobalPulse Dashboard](https://raw.githubusercontent.com/atharvpawar16/GlobalPulse/main/docs/screenshot.png)
+| Feature | Description |
+|---------|-------------|
+| 🛰 **Satellite Map** | Switch between Satellite, Hybrid, and Street views (Esri World Imagery) |
+| 📡 **40+ Live Feeds** | BBC, Reuters, Al Jazeera, USGS, GDACS, Bellingcat, CISA, UN News and more |
+| ⚡ **Auto Updates** | Events refresh every 5 minutes from real RSS feeds |
+| 🤖 **Auto Classification** | Headlines auto-tagged as Conflict / Disaster / Cyber / Political / News |
+| 📍 **Auto Geocoding** | Country names extracted from headlines, pinned on map via Nominatim |
+| 🔍 **Search & Filter** | Filter by category, severity (1–5), time range; full-text search |
+| 🔔 **Custom Alerts** | Create rules that fire notifications when matching events arrive |
+| 🌙 **Dark / Light Mode** | Persists across sessions |
+| 📱 **Mobile Responsive** | Full-screen map with slide-in sidebar on mobile |
+| 💾 **Demo Mode** | Works fully without a database — loads sample events instantly |
 
 ---
 
-## Features
+## Screenshots
 
-- **🛰 Satellite Map** — Switch between Satellite, Hybrid, and Street views powered by Esri World Imagery
-- **📡 40+ Global Feeds** — BBC, Reuters, Al Jazeera, USGS, GDACS, Bellingcat, CISA, UN News and more
-- **⚡ Live Updates** — Events refresh every 5 minutes, SignalR push when Redis is available
-- **🤖 Auto Classification** — Headlines auto-tagged as Conflict / Disaster / Cyber / Political / News
-- **📍 Auto Geocoding** — Country names extracted from headlines and pinned on the map
-- **🔍 Search & Filter** — Filter by category, severity (1–5), time range; full-text search
-- **🔔 Custom Alerts** — Create rules that fire toast notifications when matching events arrive
-- **🌙 Dark / Light Mode** — Persists across sessions via localStorage
-- **📱 Mobile Responsive** — Full-screen map with slide-in sidebar on mobile
-- **💾 Demo Mode** — Works fully without a database, loads sample events instantly
+> *Satellite view · Dark mode · Live event markers*
+
+![GlobalPulse Dashboard](https://raw.githubusercontent.com/atharvpawar16/GlobalPulse/main/docs/screenshot.png)
 
 ---
 
@@ -46,10 +55,11 @@ No paywalls. No API keys required. Fully open source.
 |-------|-----------|
 | Backend | ASP.NET Core 9 · SignalR · Dapper |
 | Frontend | HTML · CSS · Vanilla JS — zero build tools |
-| Database | PostgreSQL (Neon.tech serverless) |
+| Database | PostgreSQL (Neon serverless) |
 | Map | Leaflet.js · Esri World Imagery · MarkerCluster |
 | Geocoding | Nominatim (OpenStreetMap) |
 | Live Push | SignalR WebSockets · Redis Pub/Sub |
+| Hosting | Render.com |
 | CI | GitHub Actions |
 
 ---
@@ -79,12 +89,28 @@ ASP.NET Core 9
   ├── FeedIngestionService   — fetches 40+ RSS feeds every 5 min
   ├── Geocoding              — Nominatim API (country → lat/lng)
   ├── SignalR Hub            — pushes new events to all clients
-  └── REST API               — /api/events, /api/alerts, /api/feeds
+  └── REST API               — /api/events · /api/alerts · /api/feeds
         │
         ▼
 PostgreSQL (Neon serverless)
   events · alert_rules · feed_sources
 ```
+
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/atharvpawar16/GlobalPulse.git
+cd GlobalPulse
+dotnet run --project backend/GlobalPulse.Api.csproj
+```
+
+Open **http://localhost:5164**
+
+Runs in demo mode out of the box — no database or API keys required.
+
+To connect a real database, set the `ConnectionStrings__Postgres` environment variable to any PostgreSQL connection string (e.g. [Neon.tech](https://neon.tech) free tier).
 
 ---
 
@@ -106,38 +132,28 @@ GlobalPulse/
 │   │   ├── Event.cs
 │   │   └── AlertRule.cs
 │   ├── Program.cs                  # Minimal API routes
-│   ├── appsettings.json
 │   └── Dockerfile
 ├── infra/
-│   └── db/init.sql
+│   └── db/init.sql                 # Database schema
 ├── .github/
-│   └── workflows/ci.yml
-├── docker-compose.yml
+│   ├── workflows/ci.yml            # GitHub Actions CI
+│   ├── ISSUE_TEMPLATE/
+│   └── PULL_REQUEST_TEMPLATE.md
 ├── CONTRIBUTING.md
+├── SECURITY.md
+├── CODE_OF_CONDUCT.md
 └── LICENSE
 ```
 
 ---
 
-## Getting Started
-
-```bash
-git clone https://github.com/atharvpawar16/GlobalPulse.git
-cd GlobalPulse
-dotnet run --project backend/GlobalPulse.Api.csproj
-```
-
-Open **http://localhost:5164**
-
-The app runs in demo mode out of the box — no database or API keys required. To connect a real database, set the `ConnectionStrings__Postgres` environment variable to any PostgreSQL connection string.
-
----
-
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Issues and pull requests are welcome.
+See [CONTRIBUTING.md](CONTRIBUTING.md) — adding new feeds, improving classification, or fixing bugs are all great starting points.
 
----
+## Security
+
+See [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
 
 ## License
 

@@ -13,10 +13,14 @@ appsettings.Development.json
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # IDE
-.vscode/settings.json
+.vscode/
 .idea/
 
 # Private deployment notes
 DEPLOY.md
+
+# Render / Railway generated
+.render-buildpacks.json
