@@ -70,6 +70,17 @@ body { display: flex; flex-direction: column; }
   display: flex; align-items: center; justify-content: center;
   border-radius: 8px;
 }
+.topbar-logo {
+  display: flex; align-items: center; gap: 7px;
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
+.topbar-globe { font-size: 1.4rem; line-height: 1; }
+.topbar-name {
+  font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px;
+  background: linear-gradient(135deg, var(--accent), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 /* ── Sidebar ── */
 #sidebar {
