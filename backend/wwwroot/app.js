@@ -178,7 +178,11 @@ function renderList(events) {
       <div class="ev-meta">${escHtml(ev.source)} · ${timeAgo(ev.occurredAt||ev.occurred_at)}</div>
     </div>`).join('');
   el.querySelectorAll('.event-item').forEach(item =>
-    item.addEventListener('click', () => { const ev = eventStore[item.dataset.id]; showDetail(ev); flyTo(ev); })
+    item.addEventListener('click', () => {
+      const ev = eventStore[item.dataset.id];
+      showDetail(ev); flyTo(ev);
+      if (window.innerWidth <= 700) closeSidebar();
+    })
   );
   btn.classList.toggle('hidden', visibleCount >= events.length);
 }
@@ -412,13 +416,22 @@ function showToast(ev) {
   setTimeout(() => t.remove(), 7000);
 }
 
-// ── Mobile ────────────────────────────────────────────────────────────────────
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+// ── Mobile sidebar ────────────────────────────────────────────────────────────
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  const isOpen = sidebar.classList.toggle('open');
+  overlay.classList.toggle('visible', isOpen);
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('visible');
+}
 
 // Close sidebar when tapping the map on mobile
 document.getElementById('map').addEventListener('click', () => {
-  if (window.innerWidth <= 700)
-    document.getElementById('sidebar').classList.remove('open');
+  if (window.innerWidth <= 700) closeSidebar();
 });
 
 // ── Demo data ─────────────────────────────────────────────────────────────────

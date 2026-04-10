@@ -401,75 +401,76 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   to   { transform: translateX(0) scale(1);      opacity: 1; }
 }
 
+/* ── Sidebar overlay (mobile) ── */
+#sidebarOverlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 299;
+  background: rgba(0,0,0,0.5);
+}
+#sidebarOverlay.visible { display: block; }
+
 /* ── Mobile ── */
 @media (max-width: 700px) {
+  /* Show topbar */
   #topbar { display: flex; }
 
+  /* Slightly smaller base font */
   body { font-size: 14px; }
 
+  /* Sidebar slides in from left */
   #sidebar {
-    position: fixed; left: 0; top: 48px; bottom: 0;
-    z-index: 300; transform: translateX(-100%);
-    width: 85vw; min-width: 0; max-width: 320px;
+    position: fixed;
+    left: 0; top: 48px; bottom: 0;
+    z-index: 300;
+    transform: translateX(-100%);
+    width: 88vw; min-width: 0; max-width: 340px;
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
   }
-  #sidebar.open { transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,0.7); }
-
-  /* Overlay when sidebar is open */
-  #sidebar.open::after {
-    content: '';
-    position: fixed; inset: 0; left: 85vw;
-    background: rgba(0,0,0,0.4);
-    z-index: -1;
-  }
-
-  #mapContainer {
-    height: calc(100vh - 48px);
-    height: calc(100dvh - 48px); /* dynamic viewport for mobile browsers */
-  }
-
-  /* Detail panel — full screen on mobile */
-  #detailPanel {
-    width: 100%;
-    top: 48px; /* below topbar */
-    padding: 16px;
-  }
-
+  #sidebar.open { transform: translateX(0); }
   .sidebar-header { display: none; }
 
-  /* Layer switcher — smaller on mobile */
+  /* Map fills remaining height — use dvh for mobile browser chrome */
+  #mapContainer {
+    position: fixed;
+    top: 48px; left: 0; right: 0; bottom: 0;
+    height: auto;
+  }
+
+  /* Detail panel — full screen, below topbar */
+  #detailPanel {
+    width: 100%;
+    top: 48px;
+    padding: 16px 14px;
+  }
+
+  /* Layer switcher — compact on mobile */
   #layerSwitcher {
-    top: 10px; right: 10px; gap: 4px;
+    top: 8px; right: 8px; gap: 4px;
   }
   .layer-btn {
-    padding: 6px 10px; font-size: 0.75rem;
+    padding: 6px 10px;
+    font-size: 0.72rem;
   }
 
-  /* Legend — smaller, bottom left */
+  /* Legend — above zoom controls */
   #legend {
-    bottom: 60px; /* above zoom controls */
-    left: 10px;
-    padding: 7px 10px;
-    gap: 4px;
+    bottom: 56px; left: 8px;
+    padding: 7px 10px; gap: 4px;
   }
-  .legend-item { font-size: 0.72rem; gap: 6px; }
+  .legend-item { font-size: 0.7rem; gap: 5px; }
   .ldot { width: 8px; height: 8px; }
 
-  /* Toast — full width on mobile */
-  #toastContainer {
-    bottom: 12px; right: 12px; left: 12px;
-  }
-  .toast { max-width: 100%; font-size: 0.85rem; }
+  /* Toast — full width */
+  #toastContainer { bottom: 10px; right: 10px; left: 10px; }
+  .toast { max-width: 100%; font-size: 0.84rem; padding: 10px 13px; }
 
-  /* Zoom control — move up so it doesn't overlap legend */
-  .leaflet-control-zoom {
-    margin-bottom: 16px !important;
+  /* Bigger tap targets */
+  .tab { padding: 13px 4px; font-size: 0.92rem; }
+  .event-item { padding: 11px 12px; }
+  button#btnApply, button.btn-primary { padding: 12px; font-size: 0.92rem; }
+  select, input[type="text"].text-input, #searchInput {
+    padding: 11px 12px; font-size: 0.92rem;
   }
-
-  /* Tap targets — bigger on touch */
-  .tab { padding: 13px 4px; font-size: 0.95rem; }
-  .event-item { padding: 12px 12px; }
-  button#btnApply, button.btn-primary { padding: 12px; font-size: 0.95rem; }
-  select, input[type="text"].text-input, #searchInput { padding: 11px 13px; font-size: 0.95rem; }
 }
 
 /* ── Empty message ── */
