@@ -133,13 +133,6 @@ public class DbService
         return await db.QueryAsync<Event>(sql, new { hours, category, country, minSeverity = minSeverity ?? 1, limit });
     }
 
-    public async Task<Event?> GetEventByIdAsync(long id)
-    {
-        using var db = Conn();
-        return await db.QueryFirstOrDefaultAsync<Event>(
-            "SELECT * FROM events WHERE id = @id", new { id });
-    }
-
     public async Task<long> InsertEventAsync(Event e)
     {
         using var db = Conn();
@@ -149,16 +142,6 @@ public class DbService
             VALUES (@Source, @Category, @Title, @Summary, @Url, @Lat, @Lng, @Country, @Region, @Severity, @OccurredAt)
             ON CONFLICT DO NOTHING
             RETURNING id", e);
-    }
-
-    public async Task<bool> EventExistsAsync(string? url, string title, string source)
-    {
-        using var db = Conn();
-        if (!string.IsNullOrEmpty(url))
-            return await db.ExecuteScalarAsync<bool>(
-                "SELECT EXISTS(SELECT 1 FROM events WHERE url = @url)", new { url });
-        return await db.ExecuteScalarAsync<bool>(
-            "SELECT EXISTS(SELECT 1 FROM events WHERE title = @title AND source = @source)", new { title, source });
     }
 
     public async Task<IEnumerable<dynamic>> GetStatsSummaryAsync(int hours)

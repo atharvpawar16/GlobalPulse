@@ -47,8 +47,6 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Star field — removed (satellite map is the background now) ── */
-
 /* ── Layout ── */
 body { display: flex; flex-direction: column; }
 
@@ -334,8 +332,6 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 }
 .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 500; }
 .ldot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 5px currentColor; }
-
-/* ── Loading overlay — removed ── */
 
 /* ── Detail Panel ── */
 #detailPanel {

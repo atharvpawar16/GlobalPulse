@@ -56,12 +56,6 @@ public class FeedIngestionService : BackgroundService
 
                 foreach (var item in result.Items.Take(20))
                 {
-                    // Deduplication check
-                    bool exists = false;
-                    try { exists = await db.EventExistsAsync(item.Link, item.Title ?? "", (string)feed.name); }
-                    catch { /* DB not available, skip dedup */ }
-                    if (exists) continue;
-
                     var ev = new Event
                     {
                         Source     = (string)feed.name,
@@ -73,7 +67,6 @@ public class FeedIngestionService : BackgroundService
                         OccurredAt = item.PublishingDate?.ToUniversalTime() ?? DateTime.UtcNow,
                     };
 
-                    // Geocode from title/description if no coords
                     var country = ExtractCountry(ev.Title + " " + ev.Summary);
                     if (country != null)
                     {
@@ -87,7 +80,7 @@ public class FeedIngestionService : BackgroundService
                     catch { /* DB not available */ }
                     ev.Id = id;
 
-                    if (pub != null)
+                    if (pub != null && id > 0)
                         await pub.PublishAsync(RedisChannel.Literal("events:new"), JsonSerializer.Serialize(ev));
                 }
 

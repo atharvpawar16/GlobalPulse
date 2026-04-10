@@ -48,7 +48,6 @@ const map = L.map('map', {
 });
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-// Fix #1 — grey gap: use ResizeObserver so map always fills its container
 const ro = new ResizeObserver(() => map.invalidateSize());
 ro.observe(document.getElementById('mapContainer'));
 
@@ -167,7 +166,6 @@ function renderAll(events) {
   updateCount(events.length);
 }
 
-// Fix #3 — load more
 function renderList(events) {
   const el = document.getElementById('eventList');
   const btn = document.getElementById('btnLoadMore');
@@ -236,7 +234,6 @@ function computeStats() {
       ).join('');
 }
 
-// ── Detail panel — Fix #7 share button ───────────────────────────────────────
 function showDetail(ev) {
   if (!ev) return;
   document.getElementById('detailContent').innerHTML = `
@@ -277,7 +274,7 @@ function switchTab(name) {
   if (name === 'feeds')  loadFeeds();
 }
 
-// ── Alerts — Fix #4: rules checked on new events ──────────────────────────────
+// ── Alerts ────────────────────────────────────────────────────────────────────
 let alertRules = [];
 
 async function loadAlerts() {
@@ -337,12 +334,16 @@ async function deleteAlert(id) {
   loadAlerts();
 }
 
-// ── Feeds — Fix #5: demo feeds when no DB ────────────────────────────────────
+// ── Feeds ─────────────────────────────────────────────────────────────────────
 const DEMO_FEEDS = [
-  { id:1, name:'BBC World',            type:'rss', category:'news',    active:true, last_fetched:null },
-  { id:2, name:'Al Jazeera',           type:'rss', category:'news',    active:true, last_fetched:null },
-  { id:3, name:'USGS Earthquakes M2.5+', type:'rss', category:'disaster', active:true, last_fetched:null },
-  { id:4, name:'NASA FIRMS Wildfires', type:'rss', category:'disaster', active:true, last_fetched:null },
+  { id:1, name:'BBC World',               type:'rss', category:'news',     active:true, last_fetched:null },
+  { id:2, name:'Al Jazeera',              type:'rss', category:'news',     active:true, last_fetched:null },
+  { id:3, name:'Reuters World',           type:'rss', category:'news',     active:true, last_fetched:null },
+  { id:4, name:'USGS Earthquakes M2.5+',  type:'rss', category:'disaster', active:true, last_fetched:null },
+  { id:5, name:'GDACS Alerts',            type:'rss', category:'disaster', active:true, last_fetched:null },
+  { id:6, name:'Krebs on Security',       type:'rss', category:'cyber',    active:true, last_fetched:null },
+  { id:7, name:'The Hacker News',         type:'rss', category:'cyber',    active:true, last_fetched:null },
+  { id:8, name:'Foreign Policy',          type:'rss', category:'political',active:true, last_fetched:null },
 ];
 
 async function loadFeeds() {
@@ -387,7 +388,7 @@ connection.on('NewEvent', json => {
   prependToList(ev);
   updateCount(allEvents.length);
   if (ev.severity >= 3) showToast(ev);
-  checkAlertRules(ev);   // Fix #4 — actually fire alert rules
+  checkAlertRules(ev);
 });
 connection.start().catch(() => {});
 

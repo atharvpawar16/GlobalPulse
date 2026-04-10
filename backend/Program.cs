@@ -63,16 +63,6 @@ app.MapGet("/api/events", async (
     catch { return Results.Ok(Array.Empty<object>()); }
 });
 
-app.MapGet("/api/events/{id:long}", async (DbService db, long id) =>
-{
-    try
-    {
-        var ev = await db.GetEventByIdAsync(id);
-        return ev is null ? Results.NotFound() : Results.Ok(ev);
-    }
-    catch { return Results.NotFound(); }
-});
-
 app.MapGet("/api/events/stats", async (DbService db, int hours = 24) =>
 {
     try
