@@ -22,5 +22,5 @@ desktop.ini
 # Private deployment notes
 DEPLOY.md
 
-# Render / Railway generated
+# Render generated
 .render-buildpacks.json
