@@ -58,13 +58,17 @@ body { display: flex; flex-direction: column; }
 /* ── Mobile topbar ── */
 #topbar {
   display: none; align-items: center; justify-content: space-between;
-  padding: 10px 14px; background: var(--surface);
-  border-bottom: 1px solid var(--border); z-index: 200; position: relative;
+  padding: 0 14px; height: 52px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border); z-index: 400; position: relative;
+  flex-shrink: 0;
 }
-#topbar .logo { font-size: 1rem; font-weight: 700; }
+#topbar .logo-text { font-size: 1.1rem; }
 #btnHamburger, #btnThemeMobile {
   background: none; border: none; color: var(--text);
-  font-size: 1.2rem; cursor: pointer; width: auto; padding: 4px;
+  font-size: 1.4rem; cursor: pointer; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
 }
 
 /* ── Sidebar ── */
@@ -406,57 +410,60 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   display: none;
   position: fixed; inset: 0; z-index: 299;
   background: rgba(0,0,0,0.5);
+  top: 52px;
 }
 #sidebarOverlay.visible { display: block; }
 
 /* ── Mobile ── */
 @media (max-width: 700px) {
-  /* Show topbar */
+  /* Show topbar, hide desktop sidebar header */
   #topbar { display: flex; }
+  .sidebar-header { display: none; }
 
-  /* Slightly smaller base font */
   body { font-size: 14px; }
 
-  /* Sidebar slides in from left */
+  /* Main layout stacks — map fills everything below topbar */
+  .main-layout {
+    position: relative;
+    height: calc(100vh - 52px);
+    height: calc(100dvh - 52px);
+  }
+
+  /* Map fills the full area */
+  #mapContainer {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    height: auto;
+    flex: none;
+    width: 100%;
+  }
+
+  /* Sidebar slides in over the map */
   #sidebar {
-    position: fixed;
-    left: 0; top: 48px; bottom: 0;
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
     z-index: 300;
     transform: translateX(-100%);
     width: 88vw; min-width: 0; max-width: 340px;
     transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    /* Override desktop flex sizing */
+    flex: none;
   }
   #sidebar.open { transform: translateX(0); }
-  .sidebar-header { display: none; }
-
-  /* Map fills remaining height — use dvh for mobile browser chrome */
-  #mapContainer {
-    position: fixed;
-    top: 48px; left: 0; right: 0; bottom: 0;
-    height: auto;
-  }
 
   /* Detail panel — full screen, below topbar */
   #detailPanel {
     width: 100%;
-    top: 48px;
+    top: 52px;
     padding: 16px 14px;
   }
 
-  /* Layer switcher — compact on mobile */
-  #layerSwitcher {
-    top: 8px; right: 8px; gap: 4px;
-  }
-  .layer-btn {
-    padding: 6px 10px;
-    font-size: 0.72rem;
-  }
+  /* Layer switcher — compact */
+  #layerSwitcher { top: 8px; right: 8px; gap: 4px; }
+  .layer-btn { padding: 6px 10px; font-size: 0.72rem; }
 
   /* Legend — above zoom controls */
-  #legend {
-    bottom: 56px; left: 8px;
-    padding: 7px 10px; gap: 4px;
-  }
+  #legend { bottom: 56px; left: 8px; padding: 7px 10px; gap: 4px; }
   .legend-item { font-size: 0.7rem; gap: 5px; }
   .ldot { width: 8px; height: 8px; }
 
