@@ -415,6 +415,12 @@ function showToast(ev) {
 // ── Mobile ────────────────────────────────────────────────────────────────────
 function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
+// Close sidebar when tapping the map on mobile
+document.getElementById('map').addEventListener('click', () => {
+  if (window.innerWidth <= 700)
+    document.getElementById('sidebar').classList.remove('open');
+});
+
 // ── Demo data ─────────────────────────────────────────────────────────────────
 function loadDemoData() {
   allEvents = [

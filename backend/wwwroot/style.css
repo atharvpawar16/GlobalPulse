@@ -404,16 +404,72 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 /* ── Mobile ── */
 @media (max-width: 700px) {
   #topbar { display: flex; }
+
+  body { font-size: 14px; }
+
   #sidebar {
     position: fixed; left: 0; top: 48px; bottom: 0;
     z-index: 300; transform: translateX(-100%);
-    width: 280px; min-width: 280px;
+    width: 85vw; min-width: 0; max-width: 320px;
   }
-  #sidebar.open { transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,0.6); }
-  #mapContainer { height: calc(100vh - 48px); }
-  #detailPanel { width: 100%; }
+  #sidebar.open { transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,0.7); }
+
+  /* Overlay when sidebar is open */
+  #sidebar.open::after {
+    content: '';
+    position: fixed; inset: 0; left: 85vw;
+    background: rgba(0,0,0,0.4);
+    z-index: -1;
+  }
+
+  #mapContainer {
+    height: calc(100vh - 48px);
+    height: calc(100dvh - 48px); /* dynamic viewport for mobile browsers */
+  }
+
+  /* Detail panel — full screen on mobile */
+  #detailPanel {
+    width: 100%;
+    top: 48px; /* below topbar */
+    padding: 16px;
+  }
+
   .sidebar-header { display: none; }
-  #legend { bottom: 10px; left: 10px; padding: 8px 10px; }
+
+  /* Layer switcher — smaller on mobile */
+  #layerSwitcher {
+    top: 10px; right: 10px; gap: 4px;
+  }
+  .layer-btn {
+    padding: 6px 10px; font-size: 0.75rem;
+  }
+
+  /* Legend — smaller, bottom left */
+  #legend {
+    bottom: 60px; /* above zoom controls */
+    left: 10px;
+    padding: 7px 10px;
+    gap: 4px;
+  }
+  .legend-item { font-size: 0.72rem; gap: 6px; }
+  .ldot { width: 8px; height: 8px; }
+
+  /* Toast — full width on mobile */
+  #toastContainer {
+    bottom: 12px; right: 12px; left: 12px;
+  }
+  .toast { max-width: 100%; font-size: 0.85rem; }
+
+  /* Zoom control — move up so it doesn't overlap legend */
+  .leaflet-control-zoom {
+    margin-bottom: 16px !important;
+  }
+
+  /* Tap targets — bigger on touch */
+  .tab { padding: 13px 4px; font-size: 0.95rem; }
+  .event-item { padding: 12px 12px; }
+  button#btnApply, button.btn-primary { padding: 12px; font-size: 0.95rem; }
+  select, input[type="text"].text-input, #searchInput { padding: 11px 13px; font-size: 0.95rem; }
 }
 
 /* ── Empty message ── */
