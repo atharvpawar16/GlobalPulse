@@ -17,3 +17,6 @@ Thumbs.db
 # IDE
 .vscode/settings.json
 .idea/
+
+# Private deployment notes
+DEPLOY.md
