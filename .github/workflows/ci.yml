@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   pull_request:
-    branches: [main, master]
+    branches: [main]
 
 jobs:
   build:
@@ -25,3 +25,6 @@ jobs:
 
       - name: Publish
         run: dotnet publish backend/GlobalPulse.Api.csproj -c Release --no-build -o ./publish
+
+      - name: Docker build check
+        run: docker build -f backend/Dockerfile backend/ -t globalpulse:ci
