@@ -344,7 +344,7 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 
 /* ── Legend ── */
 #legend {
-  position: absolute; top: 16px; left: 16px; z-index: 500;
+  position: absolute; top: 52px; left: 16px; z-index: 500;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 10px; padding: 10px 14px;
   display: flex; flex-direction: column; gap: 6px;
@@ -490,8 +490,8 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   .legend-item { font-size: 0.7rem; gap: 5px; }
   .ldot { width: 8px; height: 8px; }
 
-  /* Watermark — bottom-left on mobile */
-  #mapWatermark { bottom: 8px; right: auto; left: 8px; }
+  /* Watermark — stays top-left on mobile too */
+  #mapWatermark { top: 8px; left: 8px; bottom: auto; right: auto; }
 
   /* Toast — full width */
   #toastContainer { bottom: 10px; right: 10px; left: 10px; }
@@ -520,7 +520,7 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 
 /* ── Map watermark ── */
 #mapWatermark {
-  position: absolute; bottom: 8px; right: 48px; z-index: 400;
+  position: absolute; top: 16px; left: 16px; z-index: 400;
   font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2px;
   color: rgba(255,255,255,0.75);
   pointer-events: none;
