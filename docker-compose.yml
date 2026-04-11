@@ -4,29 +4,43 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: globalpulse
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: globalpulse
+      POSTGRES_USER: ${POSTGRES_USER:-globalpulse}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-globalpulse}
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./infra/db/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-globalpulse}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: ./backend
     environment:
-      ConnectionStrings__Postgres: "Host=db;Port=5432;Database=globalpulse;Username=globalpulse;Password=password"
+      ConnectionStrings__Postgres: "Host=db;Port=5432;Database=${POSTGRES_DB:-globalpulse};Username=${POSTGRES_USER:-globalpulse};Password=${POSTGRES_PASSWORD:-changeme}"
       Redis: "redis:6379"
+      FeedIntervalMinutes: "5"
     ports:
       - "5000:8080"
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
 volumes:
   pgdata:

@@ -60,8 +60,8 @@ public class FeedIngestionService : BackgroundService
                     {
                         Source     = (string)feed.name,
                         Category   = ClassifyCategory((string)feed.category, item.Title ?? ""),
-                        Title      = item.Title ?? "(no title)",
-                        Summary    = StripHtml(item.Description ?? ""),
+                        Title      = (item.Title ?? "(no title)")[..Math.Min(item.Title?.Length ?? 14, 500)],
+                        Summary    = StripHtml(item.Description ?? "")[..Math.Min(StripHtml(item.Description ?? "").Length, 2000)],
                         Url        = item.Link,
                         Severity   = GuessSeverity(item.Title ?? ""),
                         OccurredAt = item.PublishingDate?.ToUniversalTime() ?? DateTime.UtcNow,
@@ -130,12 +130,14 @@ public class FeedIngestionService : BackgroundService
     }
 
     // ── Geocoding via Nominatim ───────────────────────────────────────────────
+    // Cache capped at 500 entries to prevent unbounded memory growth
     private static readonly Dictionary<string, (double lat, double lng)?> _geocodeCache = new();
     private static readonly HttpClient _http = new() { Timeout = TimeSpan.FromSeconds(5) };
 
     private static async Task<(double lat, double lng)?> GeocodeAsync(string query)
     {
         if (_geocodeCache.TryGetValue(query, out var cached)) return cached;
+        if (_geocodeCache.Count >= 500) _geocodeCache.Clear(); // simple cap
         try
         {
             _http.DefaultRequestHeaders.UserAgent.TryParseAdd("GlobalPulse/1.0");

@@ -36,7 +36,7 @@ No paywalls. No API keys required. Fully open source.
 | 🔍 **Search & Filter** | Filter by category, severity (1–5), time range; full-text search |
 | 🔔 **Custom Alerts** | Create rules that fire notifications when matching events arrive |
 | 🌙 **Dark / Light Mode** | Persists across sessions |
-| 📱 **Mobile Responsive** | Full-screen map with slide-in sidebar on mobile |
+| 📱 **Mobile Responsive** | Full-screen map on mobile with legend and layer switcher |
 | 💾 **Demo Mode** | Works fully without a database — loads sample events instantly |
 
 ---
