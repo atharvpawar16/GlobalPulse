@@ -1,21 +1,21 @@
-## Summary
-Brief description of what this PR does.
+## What does this PR do?
 
-## Type of Change
+<!-- Brief description of the change -->
+
+## Related Issue
+
+Closes #<!-- issue number -->
+
+## Type of change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Refactor / cleanup
-- [ ] Documentation
-- [ ] Other
-
-## Changes Made
-- 
-- 
-
-## Testing
-Describe how you tested this change.
+- [ ] Docs / config
 
 ## Checklist
-- [ ] Code builds without errors (`dotnet build`)
-- [ ] No secrets or credentials committed
-- [ ] README updated if needed
+
+- [ ] Tested locally
+- [ ] No console errors
+- [ ] Mobile layout checked
+- [ ] No breaking changes

@@ -1,29 +1,20 @@
 ---
-name: Bug Report
+name: Bug report
 about: Something is broken
-title: '[BUG] '
 labels: bug
-assignees: atharvpawar16
 ---
 
-## Description
-A clear description of the bug.
+## Describe the bug
+<!-- What happened? -->
 
-## Steps to Reproduce
-1. Go to '...'
-2. Click on '...'
-3. See error
+## Steps to reproduce
+1. 
+2. 
 
-## Expected Behavior
-What should happen.
-
-## Actual Behavior
-What actually happens.
+## Expected behavior
+<!-- What should happen? -->
 
 ## Environment
-- OS:
+- Device: Desktop / Mobile
 - Browser:
-- App version / commit:
-
-## Screenshots
-If applicable, add screenshots.
+- OS:
