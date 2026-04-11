@@ -60,7 +60,9 @@ body { display: flex; flex-direction: column; }
   display: none; align-items: center; justify-content: space-between;
   padding: 0 14px; height: 52px;
   background: var(--surface);
-  border-bottom: 1px solid var(--border); z-index: 1000; position: relative;
+  border-bottom: 1px solid var(--border);
+  z-index: 1100;
+  position: relative;
   flex-shrink: 0;
 }
 #topbar .logo-text { font-size: 1.1rem; }
@@ -70,7 +72,9 @@ body { display: flex; flex-direction: column; }
   display: flex; align-items: center; justify-content: center;
   border-radius: 8px;
   position: relative;
-  z-index: 1001;
+  z-index: 1101;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .topbar-logo {
   display: flex; align-items: center; gap: 7px;
@@ -340,7 +344,7 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 
 /* ── Legend ── */
 #legend {
-  position: absolute; bottom: 28px; left: 16px; z-index: 500;
+  position: absolute; top: 16px; left: 16px; z-index: 500;
   background: var(--surface); border: 1px solid var(--border);
   border-radius: 10px; padding: 10px 14px;
   display: flex; flex-direction: column; gap: 6px;
@@ -427,10 +431,12 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.25s, visibility 0.25s;
+  pointer-events: none;
 }
 #sidebarOverlay.visible { 
   visibility: visible;
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* ── Mobile ── */
@@ -469,8 +475,6 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
     flex: none;
   }
   #sidebar.open { transform: translateX(0); }
-
-  /* Detail panel — full screen, below topbar */
   #detailPanel {
     width: 100%;
     top: 52px;
@@ -481,13 +485,13 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   #layerSwitcher { top: 8px; right: 8px; gap: 4px; }
   .layer-btn { padding: 6px 10px; font-size: 0.72rem; }
 
-  /* Legend — above zoom controls */
-  #legend { bottom: 56px; left: 8px; padding: 7px 10px; gap: 4px; }
+  /* Legend — bottom-left on mobile */
+  #legend { top: auto; bottom: 56px; left: 8px; padding: 7px 10px; gap: 4px; }
   .legend-item { font-size: 0.7rem; gap: 5px; }
   .ldot { width: 8px; height: 8px; }
 
-  /* Watermark — move to bottom on mobile */
-  #mapWatermark { top: auto; bottom: 8px; left: 8px; }
+  /* Watermark — bottom-left on mobile */
+  #mapWatermark { bottom: 8px; right: auto; left: 8px; }
 
   /* Toast — full width */
   #toastContainer { bottom: 10px; right: 10px; left: 10px; }
@@ -516,7 +520,7 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 
 /* ── Map watermark ── */
 #mapWatermark {
-  position: absolute; top: 16px; left: 16px; z-index: 400;
+  position: absolute; bottom: 8px; right: 48px; z-index: 400;
   font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2px;
   color: rgba(255,255,255,0.75);
   pointer-events: none;

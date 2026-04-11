@@ -429,6 +429,12 @@ function closeSidebar() {
   document.getElementById('sidebarOverlay').classList.remove('visible');
 }
 
+// Ensure hamburger works on touch devices
+document.getElementById('btnHamburger').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  toggleSidebar();
+});
+
 // Close sidebar when tapping the map on mobile
 document.getElementById('map').addEventListener('click', () => {
   if (window.innerWidth <= 700) closeSidebar();
