@@ -76,6 +76,14 @@ body { display: flex; flex-direction: column; }
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
+#btnHamburger {
+  flex-direction: column; gap: 5px;
+}
+.ham-bar {
+  display: block; width: 22px; height: 2px;
+  background: var(--text); border-radius: 2px;
+  transition: background 0.15s;
+}
 .topbar-logo {
   display: flex; align-items: center; gap: 7px;
   position: absolute; left: 50%; transform: translateX(-50%);
