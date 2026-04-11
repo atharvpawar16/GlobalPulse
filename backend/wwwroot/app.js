@@ -429,12 +429,6 @@ function closeSidebar() {
   document.getElementById('sidebarOverlay').classList.remove('visible');
 }
 
-// Ensure hamburger works on touch devices
-document.getElementById('btnHamburger').addEventListener('touchend', function(e) {
-  e.preventDefault();
-  toggleSidebar();
-});
-
 // Close sidebar when tapping the map on mobile
 document.getElementById('map').addEventListener('click', () => {
   if (window.innerWidth <= 700) closeSidebar();
@@ -481,3 +475,18 @@ loadStats();
 loadAlerts(); // preload alert rules so they fire on live events
 setInterval(loadStats, 60000);
 setInterval(() => { setLastUpdated(); }, 30000);
+
+// ── Hamburger (single listener, no double-fire) ───────────────────────────────
+(function() {
+  const btn = document.getElementById('btnHamburger');
+  let tapped = false;
+  btn.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    tapped = true;
+    toggleSidebar();
+  });
+  btn.addEventListener('click', function() {
+    if (tapped) { tapped = false; return; } // already handled by touchend
+    toggleSidebar();
+  });
+})();
