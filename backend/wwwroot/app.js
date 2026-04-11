@@ -472,21 +472,6 @@ function escHtml(s) {
 applyTheme();
 loadEvents();
 loadStats();
-loadAlerts(); // preload alert rules so they fire on live events
+loadAlerts();
 setInterval(loadStats, 60000);
 setInterval(() => { setLastUpdated(); }, 30000);
-
-// ── Hamburger (single listener, no double-fire) ───────────────────────────────
-(function() {
-  const btn = document.getElementById('btnHamburger');
-  let tapped = false;
-  btn.addEventListener('touchend', function(e) {
-    e.preventDefault();
-    tapped = true;
-    toggleSidebar();
-  });
-  btn.addEventListener('click', function() {
-    if (tapped) { tapped = false; return; } // already handled by touchend
-    toggleSidebar();
-  });
-})();

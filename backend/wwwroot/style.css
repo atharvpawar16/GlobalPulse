@@ -66,23 +66,13 @@ body { display: flex; flex-direction: column; }
   flex-shrink: 0;
 }
 #topbar .logo-text { font-size: 1.1rem; }
-#btnHamburger, #btnThemeMobile {
+#btnThemeMobile {
   background: none; border: none; color: var(--text);
   font-size: 1.4rem; cursor: pointer; width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 8px;
-  position: relative;
-  z-index: 1101;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-}
-#btnHamburger {
-  flex-direction: column; gap: 5px;
-}
-.ham-bar {
-  display: block; width: 22px; height: 2px;
-  background: var(--text); border-radius: 2px;
-  transition: background 0.15s;
 }
 .topbar-logo {
   display: flex; align-items: center; gap: 7px;
@@ -455,34 +445,42 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 
   body { font-size: 14px; }
 
-  /* Main layout stacks — map fills everything below topbar */
+  /* Stack layout: map on top, sidebar panel on bottom */
   .main-layout {
-    position: relative;
+    flex-direction: column;
     height: calc(100vh - 52px);
     height: calc(100dvh - 52px);
+    overflow: hidden;
   }
 
-  /* Map fills the full area */
+  /* Map takes top portion */
   #mapContainer {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    height: auto;
-    flex: none;
+    flex: 0 0 52%;
+    position: relative;
     width: 100%;
+    height: auto;
   }
 
-  /* Sidebar slides in over the map */
+  /* Sidebar always visible as bottom panel */
   #sidebar {
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    z-index: 300;
-    transform: translateX(-100%);
-    width: 88vw; min-width: 0; max-width: 340px;
-    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
-    /* Override desktop flex sizing */
-    flex: none;
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    transform: none !important;
+    position: relative;
+    border-right: none;
+    border-top: 2px solid var(--border);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+    z-index: 10;
+    overflow: hidden;
   }
-  #sidebar.open { transform: translateX(0); }
+
+  /* Overlay not needed */
+  #sidebarOverlay { display: none !important; }
+
+  /* Detail panel — full screen, below topbar */
   #detailPanel {
     width: 100%;
     top: 52px;
@@ -493,25 +491,41 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   #layerSwitcher { top: 8px; right: 8px; gap: 4px; }
   .layer-btn { padding: 6px 10px; font-size: 0.72rem; }
 
-  /* Legend — bottom-left on mobile */
-  #legend { top: auto !important; bottom: 56px !important; left: 8px; padding: 7px 10px; gap: 4px; }
-  .legend-item { font-size: 0.7rem; gap: 5px; }
-  .ldot { width: 8px; height: 8px; }
+  /* Legend — bottom-left of map area */
+  #legend {
+    top: auto !important;
+    bottom: 8px !important;
+    left: 8px;
+    padding: 6px 10px;
+    gap: 3px;
+  }
+  .legend-item { font-size: 0.68rem; gap: 5px; }
+  .ldot { width: 7px; height: 7px; }
 
-  /* Watermark — top-left on mobile, below layer switcher */
-  #mapWatermark { display: block !important; top: 52px !important; left: 8px !important; bottom: auto !important; right: auto !important; font-size: 0.6rem; padding: 3px 8px; }
+  /* Watermark — top-left of map */
+  #mapWatermark {
+    display: block !important;
+    top: 8px !important; left: 8px !important;
+    bottom: auto !important; right: auto !important;
+    font-size: 0.6rem; padding: 3px 8px;
+  }
 
   /* Toast — full width */
   #toastContainer { bottom: 10px; right: 10px; left: 10px; }
   .toast { max-width: 100%; font-size: 0.84rem; padding: 10px 13px; }
 
   /* Bigger tap targets */
-  .tab { padding: 13px 4px; font-size: 0.92rem; }
-  .event-item { padding: 11px 12px; }
-  button#btnApply, button.btn-primary { padding: 12px; font-size: 0.92rem; }
+  .tab { padding: 10px 4px; font-size: 0.88rem; }
+  .event-item { padding: 9px 10px; }
+  button#btnApply, button.btn-primary { padding: 10px; font-size: 0.88rem; }
   select, input[type="text"].text-input, #searchInput {
-    padding: 11px 12px; font-size: 0.92rem;
+    padding: 9px 10px; font-size: 0.88rem;
   }
+
+  /* Topbar: logo centered, theme button right */
+  #topbar { justify-content: center; position: relative; }
+  .topbar-logo { position: static; transform: none; }
+  #btnThemeMobile { position: absolute; right: 14px; }
 }
 
 /* ── Sidebar footer ── */
