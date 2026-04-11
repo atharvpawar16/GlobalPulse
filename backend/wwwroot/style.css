@@ -486,12 +486,12 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   .layer-btn { padding: 6px 10px; font-size: 0.72rem; }
 
   /* Legend — bottom-left on mobile */
-  #legend { top: auto; bottom: 56px; left: 8px; padding: 7px 10px; gap: 4px; }
+  #legend { top: auto !important; bottom: 56px !important; left: 8px; padding: 7px 10px; gap: 4px; }
   .legend-item { font-size: 0.7rem; gap: 5px; }
   .ldot { width: 8px; height: 8px; }
 
-  /* Watermark — stays top-left on mobile too */
-  #mapWatermark { top: 8px; left: 8px; bottom: auto; right: auto; }
+  /* Watermark — hidden on mobile (topbar already shows the brand) */
+  #mapWatermark { display: none !important; }
 
   /* Toast — full width */
   #toastContainer { bottom: 10px; right: 10px; left: 10px; }
