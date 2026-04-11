@@ -50,6 +50,7 @@ L.control.zoom({ position: 'bottomright' }).addTo(map);
 
 const ro = new ResizeObserver(() => map.invalidateSize());
 ro.observe(document.getElementById('mapContainer'));
+window.addEventListener('resize', () => setTimeout(() => map.invalidateSize(), 100));
 
 function switchLayer(name) {
   if (name === activeLayer) return;
@@ -475,3 +476,4 @@ loadStats();
 loadAlerts();
 setInterval(loadStats, 60000);
 setInterval(() => { setLastUpdated(); }, 30000);
+

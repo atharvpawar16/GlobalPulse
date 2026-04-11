@@ -401,6 +401,7 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 #toastContainer {
   position: fixed; bottom: 24px; right: 24px;
   display: flex; flex-direction: column; gap: 8px; z-index: 2000;
+  pointer-events: none;
 }
 .toast {
   background: var(--surface); border: 1px solid var(--border);
@@ -410,7 +411,10 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   animation: slideIn 0.3s cubic-bezier(0.4,0,0.2,1);
   cursor: pointer; backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  pointer-events: auto;
+  transition: opacity 0.2s, transform 0.2s;
 }
+.toast:hover { opacity: 0.92; transform: scale(1.01); }
 .toast-title { font-weight: 700; margin-bottom: 4px; font-size: 0.92rem; }
 .toast.sev-5 { border-left-color: var(--red); }
 .toast.sev-4 { border-left-color: var(--orange); }
