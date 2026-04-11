@@ -490,8 +490,8 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   .legend-item { font-size: 0.7rem; gap: 5px; }
   .ldot { width: 8px; height: 8px; }
 
-  /* Watermark — hidden on mobile (topbar already shows the brand) */
-  #mapWatermark { display: none !important; }
+  /* Watermark — top-left on mobile, below layer switcher */
+  #mapWatermark { display: block !important; top: 52px !important; left: 8px !important; bottom: auto !important; right: auto !important; font-size: 0.6rem; padding: 3px 8px; }
 
   /* Toast — full width */
   #toastContainer { bottom: 10px; right: 10px; left: 10px; }
