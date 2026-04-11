@@ -144,7 +144,7 @@ async function loadEvents() {
     if (Array.isArray(events) && events.length > 0) {
       allEvents = await enrichWithCoords(events);
     } else { loadDemoData(); return; }
-  } catch { loadDemoData(); return; }
+  } catch (err) { console.warn('[GlobalPulse] API unavailable, loading demo data:', err?.message); loadDemoData(); return; }
   finally { setLoading(false); }
   visibleCount = PAGE_SIZE;
   renderAll(allEvents);
