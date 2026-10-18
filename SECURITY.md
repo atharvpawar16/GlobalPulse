@@ -10,7 +10,7 @@
 
 **Please do not open a public GitHub issue for security vulnerabilities.**
 
-Email: adp060606@gmail.com
+Report privately through GitHub: open the repository's **Security** tab and choose **Report a vulnerability** (private vulnerability reporting).
 
 Include:
 - Description of the vulnerability
