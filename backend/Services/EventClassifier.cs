@@ -9,7 +9,7 @@ public static class EventClassifier
         if (t.Contains("earthquake") || t.Contains("flood") || t.Contains("wildfire") ||
             t.Contains("hurricane") || t.Contains("tsunami") || feedCategory == "disaster")
             return "disaster";
-        if (t.Contains("war") || t.Contains("attack") || t.Contains("missile") ||
+        if (ContainsWord(t, "war") || t.Contains("attack") || t.Contains("missile") ||
             t.Contains("troops") || t.Contains("conflict") || t.Contains("killed"))
             return "conflict";
         if (t.Contains("cyber") || t.Contains("hack") || t.Contains("breach") || t.Contains("ransomware"))
@@ -38,6 +38,10 @@ public static class EventClassifier
     {
         return System.Text.RegularExpressions.Regex.Replace(html, "<.*?>", "").Trim();
     }
+
+    // "war" must not match inside words like "ransomware" or "software".
+    private static bool ContainsWord(string text, string word) =>
+        System.Text.RegularExpressions.Regex.IsMatch(text, $@"\b{word}\b");
 
     public static string Truncate(string value, int maxLength) =>
         value.Length <= maxLength ? value : value[..maxLength];
