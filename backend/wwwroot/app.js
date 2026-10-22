@@ -434,6 +434,8 @@ function closeSidebar() {
   document.getElementById('btnMenu')?.setAttribute('aria-expanded', 'false');
 }
 
+document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
+
 // Close sidebar when tapping the map on mobile
 document.getElementById('map').addEventListener('click', () => {
   if (window.innerWidth <= 700) closeSidebar();
