@@ -79,7 +79,7 @@ body { display: flex; flex-direction: column; }
 .topbar-globe { font-size: 1.4rem; line-height: 1; }
 .topbar-name {
   font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px;
-  background: linear-gradient(135deg, var(--accent), var(--purple));
+  background: linear-gradient(135deg, var(--accent), #0969da);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -103,7 +103,7 @@ body { display: flex; flex-direction: column; }
 
 .logo-text {
   font-size: 1.35rem; font-weight: 800; letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--accent), var(--purple));
+  background: linear-gradient(135deg, var(--accent), #0969da);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -602,3 +602,5 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+.tab { letter-spacing: .01em; }
+.tab-content > * { scroll-margin-top: 8px; }
