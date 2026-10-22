@@ -5,7 +5,7 @@ const CAT = {
   conflict:  { color: '#f85149', emoji: '⚔️' },
   disaster:  { color: '#d29922', emoji: '🌊' },
   political: { color: '#58a6ff', emoji: '🏛️' },
-  cyber:     { color: '#bc8cff', emoji: '💻' },
+  cyber:     { color: '#2bc4b4', emoji: '💻' },
   news:      { color: '#3fb950', emoji: '📰' },
 };
 const SEV_LABEL = ['', 'Low', 'Moderate', 'High', 'Critical', '🔴 CRITICAL'];
@@ -424,13 +424,17 @@ function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebarOverlay');
   const isOpen = sidebar.classList.toggle('open');
+  document.getElementById('btnMenu')?.setAttribute('aria-expanded', String(isOpen));
   overlay.classList.toggle('visible', isOpen);
 }
 
 function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebarOverlay').classList.remove('visible');
+  document.getElementById('btnMenu')?.setAttribute('aria-expanded', 'false');
 }
+
+document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
 
 // Close sidebar when tapping the map on mobile
 document.getElementById('map').addEventListener('click', () => {

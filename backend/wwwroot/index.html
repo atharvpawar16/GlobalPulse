@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
 
@@ -26,6 +26,7 @@
       <span class="topbar-globe">🌍</span>
       <span class="topbar-name">GlobalPulse</span>
     </div>
+    <button id="btnMenu" onclick="toggleSidebar()" aria-label="Open events panel" aria-expanded="false">☰</button>
     <button id="btnThemeMobile" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
   </div>
 
@@ -143,7 +144,7 @@
         <div class="legend-item"><span class="ldot" style="background:#f85149"></span>Conflict</div>
         <div class="legend-item"><span class="ldot" style="background:#d29922"></span>Disaster</div>
         <div class="legend-item"><span class="ldot" style="background:#58a6ff"></span>Political</div>
-        <div class="legend-item"><span class="ldot" style="background:#bc8cff"></span>Cyber</div>
+        <div class="legend-item"><span class="ldot" style="background:#2bc4b4"></span>Cyber</div>
         <div class="legend-item"><span class="ldot" style="background:#3fb950"></span>News</div>
       </div>
 
@@ -165,7 +166,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@microsoft/signalr@8.0.0/dist/browser/signalr.min.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
 
