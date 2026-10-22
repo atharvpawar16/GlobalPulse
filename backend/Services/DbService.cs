@@ -171,10 +171,10 @@ public class DbService
             RETURNING id", r);
     }
 
-    public async Task DeleteAlertRuleAsync(long id)
+    public async Task<bool> DeleteAlertRuleAsync(long id)
     {
         using var db = Conn();
-        await db.ExecuteAsync("DELETE FROM alert_rules WHERE id = @id", new { id });
+        return await db.ExecuteAsync("DELETE FROM alert_rules WHERE id = @id", new { id }) > 0;
     }
 
     // ── Feed Sources ─────────────────────────────────────────────────────────
@@ -185,10 +185,10 @@ public class DbService
         return await db.QueryAsync("SELECT * FROM feed_sources ORDER BY name");
     }
 
-    public async Task ToggleFeedAsync(long id, bool active)
+    public async Task<bool> ToggleFeedAsync(long id, bool active)
     {
         using var db = Conn();
-        await db.ExecuteAsync("UPDATE feed_sources SET active = @active WHERE id = @id", new { id, active });
+        return await db.ExecuteAsync("UPDATE feed_sources SET active = @active WHERE id = @id", new { id, active }) > 0;
     }
 
     public async Task UpdateLastFetchedAsync(long id)

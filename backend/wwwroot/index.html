@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -23,7 +26,7 @@
       <span class="topbar-globe">🌍</span>
       <span class="topbar-name">GlobalPulse</span>
     </div>
-    <button id="btnThemeMobile" onclick="toggleTheme()">🌙</button>
+    <button id="btnThemeMobile" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
   </div>
 
   <!-- Sidebar overlay (mobile) -->
@@ -37,7 +40,7 @@
         <div class="logo-text">🌍 GlobalPulse</div>
         <div style="display:flex;gap:8px;align-items:center">
           <div class="live-badge"><span class="dot"></span> LIVE</div>
-          <button id="btnThemeDesktop" onclick="toggleTheme()" class="icon-btn" title="Toggle theme">🌙</button>
+          <button id="btnThemeDesktop" onclick="toggleTheme()" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">🌙</button>
         </div>
       </div>
 
@@ -49,7 +52,7 @@
 
       <!-- Events Tab -->
       <div id="tab-events" class="tab-content">
-        <input id="searchInput" type="text" placeholder="🔍 Search events..." oninput="onSearch()" />
+        <input id="searchInput" type="text" aria-label="Search events" placeholder="🔍 Search events..." oninput="onSearch()" />
         <div class="section-title">Filter</div>
         <select id="filterCategory">
           <option value="">All Categories</option>

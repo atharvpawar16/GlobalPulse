@@ -13,6 +13,8 @@ public static class ApiEndpoints
             string? category, string? country, int? severity,
             int hours = 24, int limit = 200) =>
         {
+            hours = Math.Clamp(hours, 1, 24 * 30);
+            limit = Math.Clamp(limit, 1, 1000);
             try
             {
                 var events = await db.GetEventsAsync(category, country, severity, hours, limit);
@@ -27,6 +29,7 @@ public static class ApiEndpoints
 
         app.MapGet("/api/events/stats", async (DbService db, ILogger<Program> logger, int hours = 24) =>
         {
+            hours = Math.Clamp(hours, 1, 24 * 30);
             try
             {
                 var stats = await db.GetStatsSummaryAsync(hours);
@@ -61,8 +64,7 @@ public static class ApiEndpoints
 
         app.MapDelete("/api/alerts/{id:long}", async (DbService db, long id) =>
         {
-            await db.DeleteAlertRuleAsync(id);
-            return Results.NoContent();
+            return await db.DeleteAlertRuleAsync(id) ? Results.NoContent() : Results.NotFound();
         });
 
         // ── Feed Sources API ──────────────────────────────────────────────────────────
@@ -78,8 +80,9 @@ public static class ApiEndpoints
 
         app.MapPatch("/api/feeds/{id:long}/toggle", async (DbService db, long id, bool active) =>
         {
-            await db.ToggleFeedAsync(id, active);
-            return Results.Ok(new { id, active });
+            return await db.ToggleFeedAsync(id, active)
+                ? Results.Ok(new { id, active })
+                : Results.NotFound();
         });
 
 
