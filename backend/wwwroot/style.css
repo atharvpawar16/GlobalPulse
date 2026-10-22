@@ -707,3 +707,8 @@ button#btnApply:active, button.btn-primary:active { transform: scale(.985); }
 @media (prefers-reduced-motion: reduce) {
   .event-item, .sev-5 { animation: none !important; }
 }
+
+@media (max-width: 700px) {
+  #sidebarOverlay { z-index: 1100; }
+  #sidebar { z-index: 1200; }
+}
