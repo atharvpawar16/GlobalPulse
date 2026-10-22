@@ -1,7 +1,5 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Google Font: Inter ── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ── Themes ── */
 :root, [data-theme="dark"] {
@@ -81,7 +79,7 @@ body { display: flex; flex-direction: column; }
 .topbar-globe { font-size: 1.4rem; line-height: 1; }
 .topbar-name {
   font-size: 1.1rem; font-weight: 800; letter-spacing: -0.3px;
-  background: linear-gradient(135deg, var(--accent), var(--purple));
+  background: linear-gradient(135deg, var(--accent), #0969da);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -105,7 +103,7 @@ body { display: flex; flex-direction: column; }
 
 .logo-text {
   font-size: 1.35rem; font-weight: 800; letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--accent), var(--purple));
+  background: linear-gradient(135deg, var(--accent), #0969da);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -591,3 +589,18 @@ input:checked + .toggle-slider::before { transform: translateX(16px); }
   padding: 3px 10px; cursor: pointer; width: auto; transition: all 0.15s;
 }
 .share-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+
+/* ── Polish: focus, motion, scrollbars ── */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+::selection { background: var(--glow); }
+.tab, .icon-btn, button, select, input, .share-btn, .btn-loadmore {
+  transition: color .18s ease, background-color .18s ease, border-color .18s ease,
+              box-shadow .18s ease, transform .18s ease, opacity .18s ease;
+}
+.tab-content { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+.tab { letter-spacing: .01em; }
+.tab-content > * { scroll-margin-top: 8px; }

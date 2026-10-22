@@ -6,6 +6,13 @@ on:
   push:
     branches: [main, develop]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,6 +29,9 @@ jobs:
 
       - name: Build
         run: dotnet build backend/GlobalPulse.Api.csproj --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test tests/GlobalPulse.Tests/GlobalPulse.Tests.csproj --configuration Release
 
       - name: Check frontend files exist
         run: |
