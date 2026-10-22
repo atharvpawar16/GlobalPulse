@@ -1,104 +1,49 @@
-# 🌍 GlobalPulse
+# GlobalPulse
 
-**Real-time world intelligence dashboard.** Monitor global conflicts, natural disasters, cyber threats, and breaking news — all on a live satellite map.
+A live map of what is happening in the world. It pulls news and alert feeds, sorts each headline into a category, pins it to a country, and shows everything on a satellite map that refreshes by itself.
 
-[![CI](https://github.com/atharvpawar16/GlobalPulse/actions/workflows/ci.yml/badge.svg)](https://github.com/atharvpawar16/GlobalPulse/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com)
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://globalpulse-mdmw.onrender.com)
-[![Stars](https://img.shields.io/github/stars/atharvpawar16/GlobalPulse?style=social)](https://github.com/atharvpawar16/GlobalPulse/stargazers)
+**Live:** https://globalpulse-mdmw.onrender.com (free hosting, the first visit can take about a minute to wake up)
 
-## 🔴 Live Demo
+[![CI](https://github.com/atharvpawar16/GlobalPulse/actions/workflows/ci.yml/badge.svg)](https://github.com/atharvpawar16/GlobalPulse/actions/workflows/ci.yml)
 
-**[https://globalpulse-mdmw.onrender.com](https://globalpulse-mdmw.onrender.com)**
+![GlobalPulse dashboard](docs/screenshot.png)
 
-> Free tier — may take ~50s to wake up on first visit.
+## Why I built it
 
----
+News is scattered across dozens of sites. I wanted one screen where I could see conflicts, disasters, cyber incidents and politics at the same time, by place, without an account or an API key.
 
-## Overview
+## What it does
 
-GlobalPulse aggregates 40+ live news and intelligence feeds from around the world, classifies events using keyword analysis, geocodes them to exact map coordinates, and displays everything on an interactive satellite map — updating every 5 minutes automatically.
+- **Satellite, hybrid and street map** (Esri imagery through Leaflet), with clustered markers.
+- **40+ feeds** read every 5 minutes: world news, security, disaster and cyber sources.
+- **Auto sorting** of headlines into Conflict, Disaster, Cyber, Political and News using keyword rules.
+- **Auto pinning:** the country named in a headline is looked up with Nominatim and placed on the map.
+- **Filters and search** by category, severity, time range and text.
+- **Custom alerts:** save a rule and get notified when a matching event arrives.
+- **Live push:** new events reach open browsers over SignalR.
+- **Dark and light theme**, and a layout that works on a phone.
+- **Demo mode:** with no database configured it still runs on sample data.
 
-No paywalls. No API keys required. Fully open source.
-
----
-
-## Features
-
-| Feature | Description |
-|---------|-------------|
-| 🛰 **Satellite Map** | Switch between Satellite, Hybrid, and Street views (Esri World Imagery) |
-| 📡 **40+ Live Feeds** | BBC, Reuters, Al Jazeera, USGS, GDACS, Bellingcat, CISA, UN News and more |
-| ⚡ **Auto Updates** | Events refresh every 5 minutes from real RSS feeds |
-| 🤖 **Auto Classification** | Headlines auto-tagged as Conflict / Disaster / Cyber / Political / News |
-| 📍 **Auto Geocoding** | Country names extracted from headlines, pinned on map via Nominatim |
-| 🔍 **Search & Filter** | Filter by category, severity (1–5), time range; full-text search |
-| 🔔 **Custom Alerts** | Create rules that fire notifications when matching events arrive |
-| 🌙 **Dark / Light Mode** | Persists across sessions |
-| 📱 **Mobile Responsive** | Full-screen map on mobile with legend and layer switcher |
-| 💾 **Demo Mode** | Works fully without a database — loads sample events instantly |
-
----
-
-## Screenshots
-
-> *Satellite view · Dark mode · Live event markers*
-
-![GlobalPulse Dashboard](https://raw.githubusercontent.com/atharvpawar16/GlobalPulse/main/docs/screenshot.png)
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Backend | ASP.NET Core 9 · SignalR · Dapper |
-| Frontend | HTML · CSS · Vanilla JS — zero build tools |
-| Database | PostgreSQL (Neon serverless) |
-| Map | Leaflet.js · Esri World Imagery · MarkerCluster |
-| Geocoding | Nominatim (OpenStreetMap) |
-| Live Push | SignalR WebSockets · Redis Pub/Sub |
-| Hosting | Render.com |
-| CI | GitHub Actions |
-
----
-
-## Data Sources
-
-**News** — BBC World · Reuters · AP News · Al Jazeera · France 24 · Deutsche Welle · Sky News · The Guardian · NPR · CNN · NBC · ABC · Euronews · NHK · Times of India · South China Morning Post · Middle East Eye · Africa News
-
-**Conflict & Security** — Bellingcat · War on the Rocks · Defense News · ACLED
-
-**Disasters** — USGS Earthquakes M2.5+ & M4.5+ · NASA FIRMS Wildfires · ReliefWeb · GDACS · Floodlist
-
-**Cyber** — Krebs on Security · The Hacker News · Bleeping Computer · CISA Advisories · Dark Reading
-
-**Geopolitical** — Foreign Policy · The Diplomat · Council on Foreign Relations · Politico · UN News
-
----
-
-## Architecture
+## How the pieces fit
 
 ```
-Browser (HTML/CSS/JS + Leaflet)
-        │
-        │  REST API + SignalR WebSocket
-        ▼
+Browser (HTML, CSS, JS, Leaflet)
+   |  REST + SignalR
+   v
 ASP.NET Core 9
-  ├── FeedIngestionService   — fetches 40+ RSS feeds every 5 min
-  ├── Geocoding              — Nominatim API (country → lat/lng)
-  ├── SignalR Hub            — pushes new events to all clients
-  └── REST API               — /api/events · /api/alerts · /api/feeds
-        │
-        ▼
-PostgreSQL (Neon serverless)
-  events · alert_rules · feed_sources
+   |- FeedIngestionService   reads the feeds on a timer, classifies, geocodes
+   |- EventsHub              pushes new events to clients
+   '- minimal API            /api/events, /api/events/stats, /api/alerts, /api/feeds, /api/health
+   |
+   v
+PostgreSQL   tables: events, alert_rules, feed_sources
 ```
 
----
+The frontend is plain HTML, CSS and JavaScript in `backend/wwwroot`. There is no build step.
 
-## Quick Start
+## Run it locally
+
+You need the .NET 9 SDK.
 
 ```bash
 git clone https://github.com/atharvpawar16/GlobalPulse.git
@@ -106,61 +51,25 @@ cd GlobalPulse
 dotnet run --project backend/GlobalPulse.Api.csproj
 ```
 
-Open **http://localhost:5164**
+Open http://localhost:5164. It starts in demo mode.
 
-Runs in demo mode out of the box — no database or API keys required.
+To use a real database, set `ConnectionStrings__Postgres` to a PostgreSQL connection string (a free Neon database works). The tables are created on startup; `infra/db/init.sql` holds the same schema. `docker-compose.yml` is there for a container setup.
 
-To connect a real database, set the `ConnectionStrings__Postgres` environment variable to any PostgreSQL connection string (e.g. [Neon.tech](https://neon.tech) free tier).
-
----
-
-## Project Structure
+## Folders
 
 ```
-GlobalPulse/
-├── backend/
-│   ├── wwwroot/                    # Frontend — no build step needed
-│   │   ├── index.html
-│   │   ├── style.css
-│   │   └── app.js
-│   ├── Services/
-│   │   ├── FeedIngestionService.cs # RSS aggregator + geocoder
-│   │   └── DbService.cs            # PostgreSQL queries via Dapper
-│   ├── Hubs/
-│   │   └── EventsHub.cs            # SignalR real-time hub
-│   ├── Models/
-│   │   ├── Event.cs
-│   │   └── AlertRule.cs
-│   ├── Program.cs                  # Minimal API routes
-│   └── Dockerfile
-├── infra/
-│   └── db/init.sql                 # Database schema
-├── .github/
-│   ├── workflows/ci.yml            # GitHub Actions CI
-│   ├── ISSUE_TEMPLATE/
-│   └── PULL_REQUEST_TEMPLATE.md
-├── CONTRIBUTING.md
-├── SECURITY.md
-├── CODE_OF_CONDUCT.md
-└── LICENSE
+backend/       API, services, SignalR hub, models, Dockerfile
+backend/wwwroot/   the whole frontend
+infra/db/      database schema
+infra/nginx/   nginx config
+.github/       CI workflow, issue and PR templates
+docs/          screenshot
 ```
 
----
+## Contributing and security
 
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) — adding new feeds, improving classification, or fixing bugs are all great starting points.
-
-## Security
-
-See [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
 ## License
 
-[MIT](LICENSE) © 2026 [Atharv Pawar](https://github.com/atharvpawar16)
-
----
-
-<div align="center">
-  Built with ❤️ by <a href="https://github.com/atharvpawar16">Atharv Pawar</a>
-</div>
+[MIT](LICENSE) (c) 2026 Atharv Pawar
