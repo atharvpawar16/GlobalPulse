@@ -1,5 +1,7 @@
 # GlobalPulse
 
+[![views](https://hits.sh/github.com/atharvpawar16/GlobalPulse.svg?label=views)](https://hits.sh/github.com/atharvpawar16/GlobalPulse/)
+
 A live map of what is happening in the world. It pulls news and alert feeds, sorts each headline into a category, pins it to a country, and shows everything on a satellite map that refreshes by itself.
 
 **Live:** https://globalpulse-mdmw.onrender.com (free hosting, the first visit can take about a minute to wake up)
